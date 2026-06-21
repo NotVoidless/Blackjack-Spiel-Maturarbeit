@@ -24,8 +24,8 @@ def kartenpunkte(karte):
         return 11
     else:
         return int(wert)
- 
- 
+
+
 def handwert(hand):
     summe = 0
     anzahl_asse = 0
@@ -33,12 +33,12 @@ def handwert(hand):
         summe = summe + kartenpunkte(karte)
         if karte["wert"] == "Ass":
             anzahl_asse = anzahl_asse + 1
-    while summe > 21 and anzahl_asse > 0:
-        summe = summe - 10
-        anzahl_asse = anzahl_asse - 1
+    summe = summe - anzahl_asse * 10
+    if anzahl_asse > 0 and summe + 10 <= 21:
+        summe = summe + 10
     return summe
- 
- 
+
+
 def hand_anzeigen(hand, name):
     kartennamen = []
     for karte in hand:
@@ -130,8 +130,10 @@ def spiel_starten():
         runde_spielen()
         print()
         antwort = input("Moechtest du nochmal spielen (j/n)? ")
+        while antwort != "j" and antwort != "n":
+            antwort = input("Bitte 'j' fuer ja oder 'n' fuer nein eingeben: ")
         print()
-        if antwort != "j":
+        if antwort == "n":
             weiterspielen = False
     print("Danke fuers Spielen!")
  
