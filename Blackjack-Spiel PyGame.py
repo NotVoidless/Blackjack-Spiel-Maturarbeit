@@ -34,9 +34,9 @@ def handwert(hand):
         summe = summe + kartenpunkte(karte)
         if karte["wert"] == "Ass":
             anzahl_asse = anzahl_asse + 1
-    while summe > 21 and anzahl_asse > 0:
-        summe = summe - 10
-        anzahl_asse = anzahl_asse - 1
+    summe = summe - anzahl_asse * 10
+    if anzahl_asse > 0 and summe + 10 <= 21:
+        summe = summe + 10
     return summe
 
 
