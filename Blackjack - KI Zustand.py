@@ -139,3 +139,29 @@ def zustand_erstellen():
     echter_zaehler = laufender_zaehler / verbleibende_decks
     zustand = [spieler_wert / 21, dealer_punkte / 11, ass, echter_zaehler / 10]
     return zustand
+
+
+# Testlauf -> später löschen
+def zustand_runden(zustand):
+    gerundet = []
+    for zahl in zustand:
+        gerundet.append(round(zahl, 2))
+    return gerundet
+ 
+ 
+print("Test des Kartenzaehlers und des Zustands")
+print("Der Schuh hat " + str(len(schuh)) + " Karten, gemischt wird unter " + str(mischgrenze))
+print("Zustand: [Handwert, Dealer-Karte, Ass, Zaehler]")
+print()
+ 
+for runde in range(1, 13):
+    mischen_falls_noetig()
+    austeilen()
+    print("Runde " + str(runde) + ": Zustand am Anfang " + str(zustand_runden(zustand_erstellen())))
+    while handwert(spieler_hand) < 21 and random.randint(0, 1) == 1:
+        spieler_hand.append(karte_ziehen())
+    dealer_aufdecken()
+    if handwert(spieler_hand) <= 21:
+        dealer_ausspielen()
+    print("   " + ergebnis_ermitteln(spieler_hand, dealer_hand))
+    print("   noch " + str(len(schuh)) + " Karten im Schuh, laufender Zaehler " + str(laufender_zaehler))
